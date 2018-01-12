@@ -12,7 +12,7 @@ The depandencies are add completely based on opinion. There are other ways to ac
 
 ### What's in here?
 
-In here you will see the dev build tools and dev tools. You will not see frame works like React, Angular, Vue, ect. You also wont see css frame work decisions here. This allows every one to start here and make choices like that based on their oppinions.
+In here you will see the dev build tools and dev tools. You will not see frame works like React, Angular, Vue, ect. You also wont see css frame work decisions here. This allows every one to start here and make choices like that based on their oppinions. It is recommended to use storybook for the testing environment but it is not nessacary, and therefore not included at this stage.
 
 ### Philosophy
 
