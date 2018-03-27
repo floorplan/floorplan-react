@@ -1,11 +1,53 @@
 const fs = require('fs-extra');
 const program = require('commander');
-const { prompt } = require('inquirer'); // require inquirerjs library
+const { prompt } = require('inquirer');
+const replace = require('replace-in-file');
+
+function capitalizeFirstLetter(string) {
+    return string[0].toUpperCase() + string.slice(1);
+}
+
+async function replaceComponentTypeAndName(componentType, componentName){
+  let options = {
+    files: `./src/${componentType}s/${componentName}/**/*`,
+    from: /ComponentName/g,
+    to: componentName,
+  };
+
+  try {
+    const changes = await replace(options)
+    console.log('Modified files:', changes.join(', '));
+  }
+  catch (error) {
+    console.error('Error occurred:', error);
+  }
+
+  options = {
+    files: `./src/${componentType}s/${componentName}/**/*`,
+    from: /ComponentType/g,
+    to: `${capitalizeFirstLetter(componentType)}s`,
+  };
+
+  try {
+    const changes = await replace(options)
+    console.log('Modified files:', changes.join(', '));
+  }
+  catch (error) {
+    console.error('Error occurred:', error);
+  }
+}
+
+function renameComponentFiles(componentType, componentName){
+  const componentPath = `./src/${componentType}s/${componentName}`;
+  fs.renameSync(`${componentPath}/ComponentName.jsx`, `${componentPath}/${componentName}.jsx`)
+  fs.renameSync(`${componentPath}/ComponentName.stories.jsx`, `${componentPath}/${componentName}.stories.jsx`)
+  fs.renameSync(`${componentPath}/__tests__/ComponentName.spec.jsx`, `${componentPath}/__tests__/${componentName}.spec.jsx`)
+}
 
 async function setupNewComponent(componentType, componentName) {
   try {
     await fs.copy(
-      './scripts/addComponentStarter/Component',
+      './scripts/addComponentStarter/ComponentName',
       `./src/${componentType}s/${componentName}`,
       {
         overwrite: false,
@@ -32,7 +74,7 @@ const questions = [
   }
 ];
 
-program.version('0.0.1').description('floorplan Util');
+program.version('0.0.1').description('Floorplan Util');
 
 program
   .command('addComponent')
@@ -44,6 +86,8 @@ program
         `Creating ${answers.componentType} component ${answers.componentName}`
       );
       await setupNewComponent(answers.componentType, answers.componentName);
+      renameComponentFiles(answers.componentType, answers.componentName);
+      await replaceComponentTypeAndName(answers.componentType, answers.componentName);
     });
   });
 
