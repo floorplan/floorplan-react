@@ -1,5 +1,5 @@
 {
-  "name": "floorplan-base",
+  "name": "@floorplan/react",
   "version": "0.0.1",
   "description": "The place to start for making a component library.",
   "main": "index.js",
@@ -7,7 +7,12 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "add-component": "node ./scripts/addComponent.js addComponent"
+    "add-component": "node ./scripts/addComponent.js addComponent",
+    "link": "./scripts/link.sh",
+    "build:link": "rm -rf ./dist/* && node ./scripts/build-dist.js",
+    "watch": "yarn run link && yarn build --watch",
+    "build": "NODE_ENV=development webpack --progress --display-error-details",
+    "build:prod": "NODE_ENV=production yarn dist && NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
@@ -30,15 +35,24 @@
     "@storybook/addon-options": "^3.3.15",
     "@storybook/addons": "^3.3.15",
     "@storybook/react": "^3.3.15",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.11",
     "inquirer": "^5.1.0",
     "react-test-renderer": "^16.2.0",
+    "style-loader": "^0.20.3",
     "webpack": "^3.11.0"
   },
   "dependencies": {
     "@storybook/addon-knobs": "^3.3.15",
+    "classnames": "^2.2.5",
     "commander": "^2.15.1",
+    "emotion": "^9.1.0",
     "eslint": "^4.1.1",
     "eslint-config-react-app": "^2.1.0",
     "eslint-loader": "^2.0.0",
