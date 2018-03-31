@@ -43,6 +43,9 @@ We have created three props for you already by default that we suggest that you 
 ###### Styling
 We include emotion for styling. You can remove it and use any option that you want. But we reccomend that you let webpack bundle the css up with the component. This allows the styles to be encapsulated with the component. You should not have to worry about clashing styles. Also you get he benefiet of sending less over the wire. The browser only has to worry about the css that the rendered components need at load time. We try to keep the styling in the same file as the component to help remove dead styles and code easier.
 
+###### Code styling and linting
+For this we simply chose to use the practices defined by create react app. We let prettier fix code on commit and eslint warn us of broken javascript.
+
 ##### Button.stories.jsx
 This file is rendered by `storybook` and is a create environment for developing comonents in isolation. We have also included two addons. One is `info` it auto generates documentation to help other developers quickly see the api with out any help. One can also extend the documentation via mark down. The other addon we include is `knobs`. We have found it very helpful to lets developers easily play with the props to see the other states rather then make a story for all teh different states. 
 
