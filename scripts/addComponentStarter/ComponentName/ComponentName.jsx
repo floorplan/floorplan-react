@@ -12,7 +12,7 @@ const defaultClassName = css`
 `;
 
 export default class ComponentName extends Component {
-	displayName = 'ComponentName';
+  displayName = 'ComponentName';
   render() {
     const {
       children,

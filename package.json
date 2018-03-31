@@ -4,15 +4,17 @@
   "description": "The place to start for making a component library.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "storybook": "start-storybook -p 6006",
+    "precommit": "lint-staged",
     "build-storybook": "build-storybook",
     "add-component": "node ./scripts/addComponent.js addComponent",
     "link": "./scripts/link.sh",
     "build:link": "rm -rf ./dist/* && node ./scripts/build-dist.js",
     "watch": "yarn run link && yarn build --watch",
     "build": "NODE_ENV=development webpack --progress --display-error-details",
-    "build:prod": "NODE_ENV=production yarn dist && NODE_ENV=production webpack"
+    "build:prod": "NODE_ENV=production yarn build:link && NODE_ENV=production webpack",
+    "publish:npm": "./scripts/publish-dist.sh"
   },
   "repository": {
     "type": "git",
@@ -42,8 +44,12 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-react-app": "^3.1.1",
     "css-loader": "^0.28.11",
+    "husky": "^0.14.3",
     "inquirer": "^5.1.0",
+    "lint-staged": "^7.0.1",
+    "prettier": "^1.11.1",
     "react-test-renderer": "^16.2.0",
     "style-loader": "^0.20.3",
     "webpack": "^3.11.0"
@@ -61,8 +67,15 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.1.0",
     "fs-extra": "^5.0.0",
+    "jest": "^22.4.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "replace-in-file": "^3.4.0"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
   }
 }
