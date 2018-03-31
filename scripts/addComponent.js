@@ -4,44 +4,51 @@ const { prompt } = require('inquirer');
 const replace = require('replace-in-file');
 
 function capitalizeFirstLetter(string) {
-    return string[0].toUpperCase() + string.slice(1);
+  return string[0].toUpperCase() + string.slice(1);
 }
 
-async function replaceComponentTypeAndName(componentType, componentName){
+async function replaceComponentTypeAndName(componentType, componentName) {
   let options = {
     files: `./src/${componentType}s/${componentName}/**/*`,
     from: /ComponentName/g,
-    to: componentName,
+    to: componentName
   };
 
   try {
-    const changes = await replace(options)
+    const changes = await replace(options);
     console.log('Modified files:', changes.join(', '));
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Error occurred:', error);
   }
 
   options = {
     files: `./src/${componentType}s/${componentName}/**/*`,
     from: /ComponentType/g,
-    to: `${capitalizeFirstLetter(componentType)}s`,
+    to: `${capitalizeFirstLetter(componentType)}s`
   };
 
   try {
-    const changes = await replace(options)
+    const changes = await replace(options);
     console.log('Modified files:', changes.join(', '));
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Error occurred:', error);
   }
 }
 
-function renameComponentFiles(componentType, componentName){
+function renameComponentFiles(componentType, componentName) {
   const componentPath = `./src/${componentType}s/${componentName}`;
-  fs.renameSync(`${componentPath}/ComponentName.jsx`, `${componentPath}/${componentName}.jsx`)
-  fs.renameSync(`${componentPath}/ComponentName.stories.jsx`, `${componentPath}/${componentName}.stories.jsx`)
-  fs.renameSync(`${componentPath}/__tests__/ComponentName.spec.jsx`, `${componentPath}/__tests__/${componentName}.spec.jsx`)
+  fs.renameSync(
+    `${componentPath}/ComponentName.jsx`,
+    `${componentPath}/${componentName}.jsx`
+  );
+  fs.renameSync(
+    `${componentPath}/ComponentName.stories.jsx`,
+    `${componentPath}/${componentName}.stories.jsx`
+  );
+  fs.renameSync(
+    `${componentPath}/__tests__/ComponentName.spec.jsx`,
+    `${componentPath}/__tests__/${componentName}.spec.jsx`
+  );
 }
 
 async function setupNewComponent(componentType, componentName) {
@@ -87,7 +94,10 @@ program
       );
       await setupNewComponent(answers.componentType, answers.componentName);
       renameComponentFiles(answers.componentType, answers.componentName);
-      await replaceComponentTypeAndName(answers.componentType, answers.componentName);
+      await replaceComponentTypeAndName(
+        answers.componentType,
+        answers.componentName
+      );
     });
   });
 

@@ -15,8 +15,16 @@ stories.add(
     <ComponentName>Render this</ComponentName>
     ~~~
   
-  `)(() => <ComponentName>{text('children', 'Click top-right to view the info.')}</ComponentName>)
+  `)(() => (
+    <ComponentName>
+      {text('children', 'Click top-right to view the info.')}
+    </ComponentName>
+  ))
 );
 stories.add('Another example', () => <ComponentName>Children</ComponentName>);
-stories.add('Pass a className', () => <ComponentName className="myClassName" />);
-stories.add('How to force a style', () => <ComponentName style={{ color: 'red' }} />);
+stories.add('Pass a className', () => (
+  <ComponentName className="myClassName" />
+));
+stories.add('How to force a style', () => (
+  <ComponentName style={{ color: 'red' }} />
+));
