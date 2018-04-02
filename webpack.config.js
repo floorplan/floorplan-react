@@ -42,6 +42,7 @@ sections.forEach((section) => {
 console.log('ENTRIES:', JSON.stringify(entries, null, 2));
 
 const config = {
+  mode: NODE_ENV,
   entry: entries,
   externals: Object.assign({
     react: 'react',
