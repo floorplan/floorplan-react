@@ -12,25 +12,15 @@ import localResolve from 'rollup-plugin-local-resolve';
 import { uglify } from 'rollup-plugin-uglify';
 
 const externals = [
-  'react',
-  'prop-types',
-  'classnames',
-  'react-router-dom',
-  'react-transition-group',
-  'react-transition-group/CSSTransitionGroup',
-  'react-transition-group/TransitionGroup',
-  'react-modal',
-  'react-color',
-  'react-color/lib/helpers/color',
-  'react-color/lib/components/common',
-  'react-color/lib/helpers/checkboard',
-  'tinycolor2',
-  'animejs',
-  'loadash',
-  'lodash/isEqual',
-  'lodash/omit',
-  'lodash/camelCase',
+  '@fortawesome/fontawesome-free',
+  '@fortawesome/fontawesome-svg-core',
+  '@fortawesome/free-brands-svg-icons',
+  '@fortawesome/free-regular-svg-icons',
+  '@fortawesome/free-solid-svg-icons',
+  '@fortawesome/react-fontawesome',
   'emotion',
+  'react',
+  'react-dom',
 ];
 
 // Rollup plugin to replace routes (current existing ones did not work)
