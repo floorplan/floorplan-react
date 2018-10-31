@@ -37,7 +37,10 @@ const externals = [
 function replaceRelativeRoutes (options = {}) {
   return {
     transformChunk: ( source, outputOptions, chunk ) => {
-      return {code: source.replace(/(\.\.\/)*(atoms|molecules|organisms|templates|pages|theme)/g, '..')};
+      return {code: source
+        .replace(/(\')(\.\/|\.\.\/)(\.\.\/)*(atoms|molecules|organisms|templates|pages|theme)/g, '\'..')
+        .replace(/(\")(\.\/|\.\.\/)(\.\.\/)*(atoms|molecules|organisms|templates|pages|theme)/g, '\"..')
+      };
     }
   }
 }
