@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import { css } from 'emotion';
+import { css, cx } from 'emotion';
 
 const defaultClassName = css`
   padding: 6px;
@@ -23,7 +22,7 @@ export default class ComponentName extends Component {
 
     return (
       <ComponentNameComponent
-        className={classnames(className, defaultClassName)}
+        className={cx(className, defaultClassName)}
         {...props}
       >
         ComponentName
