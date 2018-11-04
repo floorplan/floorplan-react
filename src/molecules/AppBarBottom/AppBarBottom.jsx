@@ -41,7 +41,7 @@ AppBarBottom.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   component: PropTypes.node,
-  use: PropTypes.oneOf('primary', 'secondary', 'danger')
+  use: PropTypes.oneOf(['primary', 'secondary', 'danger'])
 };
 
 AppBarBottom.defaultProps = {

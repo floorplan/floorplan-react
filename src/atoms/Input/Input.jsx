@@ -138,7 +138,7 @@ Input.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   component: PropTypes.node,
-  type: PropTypes.oneOf('filled', 'outlined'),
+  type: PropTypes.oneOf(['filled', 'outlined']),
   label: PropTypes.string.isRequired,
   helperText: PropTypes.node,
   value: PropTypes.string.isRequired,
@@ -146,7 +146,7 @@ Input.propTypes = {
   hasError: PropTypes.bool,
   signifierIcon: PropTypes.node,
   actionIcon: PropTypes.node,
-  use: PropTypes.oneOf('primary', 'secondary', 'danger')
+  use: PropTypes.oneOf(['primary', 'secondary', 'danger'])
 };
 
 Input.defaultProps = {

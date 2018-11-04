@@ -68,8 +68,8 @@ Button.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   component: PropTypes.node,
-  type: PropTypes.oneOf('text', 'outlined', 'contained'),
-  use: PropTypes.oneOf('primary', 'secondary', 'danger')
+  type: PropTypes.oneOf(['text', 'outlined', 'contained']),
+  use: PropTypes.oneOf(['primary', 'secondary', 'danger'])
 };
 
 Button.defaultProps = {

@@ -177,17 +177,14 @@ const getBuild = () => Object.keys(entries).map((name) => ({
     babel({
       // exclude: 'node_modules/**',
       // plugins: ['external-helpers']
+      runtimeHelpers: true,
     }),
     localResolve(),
     resolve({
       extensions: [ '.js', '.jsx', '.json' ],
     }),
     replaceNodeEnv({NODE_ENV}),
-    commonjs({
-      namedExports: {
-        'node_modules/react-color/lib/components/common/index.js': [ 'Swatch', 'Saturation', 'Hue', 'Alpha', 'Checkboard' ]
-      }
-    }),
+    commonjs(),
     NODE_ENV === 'production' && uglify(),
     replaceRelativeRoutes(),
     addIndexToShipProdOrDev({fileName: name}),

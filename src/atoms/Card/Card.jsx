@@ -33,7 +33,7 @@ export default class Card extends Component {
 Card.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  level: PropTypes.oneOf('level1', 'level2', 'level3', 'level4', 'level5'),
+  level: PropTypes.oneOf(['level1', 'level2', 'level3', 'level4', 'level5']),
   component: PropTypes.node
 };
 
