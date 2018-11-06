@@ -8,7 +8,7 @@ const defaultClassName = use => css`
   bottom: 0px;
   left: 0px;
   right: 0px;
-  height: 36px;
+  height: 60px;
   background-color: ${colors[use]};
   color: ${colors[`${use}Text`]};
   display: flex;
