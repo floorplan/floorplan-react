@@ -1,6 +1,6 @@
 {
   "name": "@floorplan/react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The place to start for making a component library.",
   "main": "index.js",
   "scripts": {
