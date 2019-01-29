@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { css, cx } from 'emotion';
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
+
 import colors from '../../theme/colors';
 
 const defaultClassName = use => css`
@@ -8,12 +10,13 @@ const defaultClassName = use => css`
   color: ${colors[use]};
   text-transform: uppercase;
   border-radius: 3px;
-  border: none;
+  border: 2px solid rgba(0, 0, 0, 0);
   font-size: 16px;
   cursor: pointer;
 
   &:hover {
     background-color: ${colors[`${use}Light`]};
+    border: 2px solid ${colors[`${use}Light`]};
     color: ${colors[`${use}Text`]};
   }
 `;
@@ -29,6 +32,7 @@ const outlinedClassName = use => css`
 `;
 
 const containedClassName = use => css`
+  border: 2px solid ${colors[use]};
   background-color: ${colors[use]};
   color: ${colors[`${use}Text`]};
 
@@ -38,44 +42,39 @@ const containedClassName = use => css`
   }
 `;
 
-export default class Button extends Component {
-  displayName = 'Button';
-  render() {
-    const {
-      children,
-      className,
-      component: ButtonComponent,
-      type,
-      use,
-      ...props
-    } = this.props;
-
-    return (
-      <ButtonComponent
-        className={cx(className, defaultClassName(use), {
-          [`${outlinedClassName(use)}`]: type === 'outlined',
-          [`${containedClassName(use)}`]: type === 'contained'
-        })}
-        {...props}
-      >
-        {children}
-      </ButtonComponent>
-    );
-  }
-}
+const Button = ({
+  children,
+  component: ButtonComponent,
+  styleType,
+  use,
+  ...props
+}) => (
+  <ButtonComponent
+    css={[
+      defaultClassName(use),
+      styleType === 'outlined' && outlinedClassName(use),
+      styleType === 'contained' && containedClassName(use)
+    ]}
+    {...props}
+  >
+    {children}
+  </ButtonComponent>
+);
 
 Button.propTypes = {
   children: PropTypes.node,
-  className: PropTypes.string,
   component: PropTypes.node,
-  type: PropTypes.oneOf(['text', 'outlined', 'contained']),
+  styleType: PropTypes.oneOf(['text', 'outlined', 'contained']),
   use: PropTypes.oneOf(['primary', 'secondary', 'danger'])
 };
 
 Button.defaultProps = {
   children: null,
-  className: '',
   component: 'button',
-  type: 'text',
+  styleType: 'text',
   use: 'primary'
 };
+
+Button.displayName = 'Button';
+
+export default Button;
