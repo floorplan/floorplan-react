@@ -19,6 +19,7 @@ const externals = [
   '@fortawesome/free-solid-svg-icons',
   '@fortawesome/react-fontawesome',
   'emotion',
+  '@emotion/core',
   'react',
   'react-dom',
 ];
