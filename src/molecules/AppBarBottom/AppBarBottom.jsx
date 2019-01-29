@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
 import PropTypes from 'prop-types';
-import { css, cx } from 'emotion';
+
 import colors from '../../theme/colors';
 
-const defaultClassName = use => css`
+const defaultCSS = use => css`
   position: fixed;
   bottom: 0px;
   left: 0px;
@@ -15,38 +16,20 @@ const defaultClassName = use => css`
   padding: 12px;
 `;
 
-export default class AppBarBottom extends Component {
-  displayName = 'AppBarBottom';
-  render() {
-    const {
-      children,
-      className,
-      component: AppBarBottomComponent,
-      use,
-      ...props
-    } = this.props;
-
-    return (
-      <AppBarBottomComponent
-        className={cx(className, defaultClassName(use))}
-        {...props}
-      >
-        {children}
-      </AppBarBottomComponent>
-    );
-  }
-}
+const AppBarBottom = ({ component: AppBarBottomComponent, use, ...props }) => (
+  <AppBarBottomComponent css={defaultCSS(use)} {...props} />
+);
 
 AppBarBottom.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
   component: PropTypes.node,
   use: PropTypes.oneOf(['primary', 'secondary', 'danger'])
 };
 
 AppBarBottom.defaultProps = {
-  children: null,
-  className: '',
   component: 'nav',
   use: 'primary'
 };
+
+AppBarBottom.displayName = 'AppBarBottom';
+
+export default AppBarBottom;

@@ -31,12 +31,17 @@ stories.add('Primary', () => (
   </FloatingActionButton>
 ));
 stories.add('Secondary', () => (
-  <FloatingActionButton>
+  <FloatingActionButton use="secondary">
     <Icon icon={['fas', 'pencil-alt']} />
   </FloatingActionButton>
 ));
 stories.add('Danger', () => (
-  <FloatingActionButton>
+  <FloatingActionButton use="danger">
+    <Icon icon={['fas', 'trash']} />
+  </FloatingActionButton>
+));
+stories.add('Mini', () => (
+  <FloatingActionButton mini use="danger">
     <Icon icon={['fas', 'trash']} />
   </FloatingActionButton>
 ));

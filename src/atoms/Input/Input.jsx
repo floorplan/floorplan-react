@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core';
+import { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { css, cx } from 'emotion';
+
 import colors from '../../theme/colors';
 
-const defaultClassName = use => css`
+const defaultCSS = ({ use }) => css`
   padding: 18px;
   border-radius: 3px;
   border: 1px solid ${use === 'danger' ? colors[use] : 'grey'};
@@ -43,13 +45,13 @@ const defaultClassName = use => css`
   }
 `;
 
-const defaultWithSignifierIconClassName = css`
+const defaultWithSignifierIconCSS = css`
   padding-left: 48px;
 `;
-const defaultWithActionIconClassName = css`
+const defaultWithActionIconCSS = css`
   padding-right: 48px;
 `;
-const labelClassName = use => css`
+const labelCSS = ({ use }) => css`
   padding: 0px 6px;
   color: grey;
   position: absolute;
@@ -62,77 +64,84 @@ const labelClassName = use => css`
   transition: all 0.2s ease-in;
 `;
 
-const labelWithSignifierIconClassName = css`
+const labelWithSignifierIconCSS = css`
   left: 48px;
 `;
 
-const helperTextClassName = use => css`
+const helperTextCSS = ({ use }) => css`
   color: ${use === 'danger' ? colors[use] : 'grey'};
   line-height: 14px;
   font-size: 14px;
   margin: 6px 18px;
 `;
-const signifierIconClassName = use => css`
+const signifierIconCSS = ({ use }) => css`
   position: absolute;
   top: 20px;
   left: 18px;
   height: 36px;
   color: ${use === 'danger' ? colors[use] : 'grey'};
 `;
-const actionIconClassName = use => css`
+const actionIconCSS = ({ use }) => css`
   position: absolute;
   top: 20px;
   right: 18px;
   height: 36px;
   color: ${use === 'danger' ? colors[use] : 'grey'};
 `;
-const containerClassName = css`
+const containerCSS = css`
   position: relative;
 `;
 
-export default class Input extends Component {
-  displayName = 'Input';
-  render() {
-    const {
-      children,
-      className,
-      component: InputComponent,
-      use,
-      label,
-      helperText,
-      signifierIcon,
-      actionIcon,
-      ...props
-    } = this.props;
+const Input = ({
+  children,
+  className,
+  component: InputComponent,
+  use,
+  label,
+  helperText,
+  signifierIcon,
+  actionIcon,
+  ...props
+}) => {
+  const inputEl = useRef(null);
 
-    return (
-      <div class={containerClassName}>
-        <div class={cx('fp-icon', signifierIconClassName(use))}>
-          {signifierIcon}
-        </div>
-        <InputComponent
-          className={cx(className, defaultClassName(use), {
-            [`${defaultWithSignifierIconClassName}`]: !!signifierIcon,
-            [`${defaultWithActionIconClassName}`]: !!actionIcon
-          })}
-          placeholder=" "
-          ref={input => (this.input = input)}
-          {...props}
-        />
-        <label
-          class={cx(labelClassName(use), {
-            [`${labelWithSignifierIconClassName}`]: !!signifierIcon
-          })}
-          onClick={() => this.input.focus()}
-        >
-          {label}
-        </label>
-        <div class={cx('fp-icon', actionIconClassName(use))}>{actionIcon}</div>
-        <div class={helperTextClassName(use)}>{helperText}</div>
+  const onLabelClick = () => {
+    // `current` points to the mounted text input element
+    inputEl.current.focus();
+  };
+
+  return (
+    <div css={containerCSS}>
+      <div className="fp-icon" css={signifierIconCSS({ use })}>
+        {signifierIcon}
       </div>
-    );
-  }
-}
+      <InputComponent
+        css={[
+          defaultCSS({ use }),
+          !!signifierIcon && [`${defaultWithSignifierIconCSS}`],
+          !!actionIcon && [`${defaultWithActionIconCSS}`]
+        ]}
+        ref={inputEl}
+        placeholder=" "
+        {...props}
+      />
+      <label
+        css={[
+          labelCSS({ use }),
+          !!signifierIcon && [`${labelWithSignifierIconCSS}`]
+        ]}
+        htmlFor={props.id}
+        onClick={onLabelClick}
+      >
+        {label}
+      </label>
+      <div className="fp-icon" css={actionIconCSS({ use })}>
+        {actionIcon}
+      </div>
+      <div css={helperTextCSS({ use })}>{helperText}</div>
+    </div>
+  );
+};
 
 Input.propTypes = {
   children: PropTypes.node,
@@ -156,3 +165,7 @@ Input.defaultProps = {
   type: 'outlined',
   use: 'primary'
 };
+
+Input.displayName = 'Input';
+
+export default Input;

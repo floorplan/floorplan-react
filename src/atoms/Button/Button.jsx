@@ -1,11 +1,10 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 /** @jsx jsx */
 import { jsx, css } from '@emotion/core';
+import PropTypes from 'prop-types';
 
 import colors from '../../theme/colors';
 
-const defaultClassName = use => css`
+const defaultCSS = use => css`
   padding: 9px 15px;
   color: ${colors[use]};
   text-transform: uppercase;
@@ -21,7 +20,7 @@ const defaultClassName = use => css`
   }
 `;
 
-const outlinedClassName = use => css`
+const outlinedCSS = use => css`
   border: 2px solid ${colors[use]};
   color: ${colors[use]};
 
@@ -31,7 +30,7 @@ const outlinedClassName = use => css`
   }
 `;
 
-const containedClassName = use => css`
+const containedCSS = use => css`
   border: 2px solid ${colors[use]};
   background-color: ${colors[use]};
   color: ${colors[`${use}Text`]};
@@ -51,9 +50,9 @@ const Button = ({
 }) => (
   <ButtonComponent
     css={[
-      defaultClassName(use),
-      styleType === 'outlined' && outlinedClassName(use),
-      styleType === 'contained' && containedClassName(use)
+      defaultCSS(use),
+      styleType === 'outlined' && outlinedCSS(use),
+      styleType === 'contained' && containedCSS(use)
     ]}
     {...props}
   >
