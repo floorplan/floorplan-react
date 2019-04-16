@@ -60,3 +60,4 @@ typings/
 # dist and build paths
 dist/
 build/
+.docz/
