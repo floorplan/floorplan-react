@@ -33,6 +33,36 @@ async function replaceComponentTypeAndName(componentType, componentName) {
   } catch (error) {
     console.error('Error occurred:', error);
   }
+
+  options = {
+    files: `./src/${componentType}s/${componentName}/**/*`,
+    from: /component-name/g,
+    to: `${componentName
+      .split(/(?=[A-Z])/)
+      .join('-')
+      .toLowerCase()
+      .replace(/^-/, '')}`
+  };
+
+  try {
+    const changes = await replace(options);
+    console.log('Modified files:', changes.join(', '));
+  } catch (error) {
+    console.error('Error occurred:', error);
+  }
+
+  options = {
+    files: `./src/${componentType}s/${componentName}/**/*`,
+    from: /component-type/g,
+    to: `${componentType}`
+  };
+
+  try {
+    const changes = await replace(options);
+    console.log('Modified files:', changes.join(', '));
+  } catch (error) {
+    console.error('Error occurred:', error);
+  }
 }
 
 function renameComponentFiles(componentType, componentName) {
