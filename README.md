@@ -29,12 +29,13 @@ It will ask for a name. It is recomended that you use KabobCase for the names of
 > We are going to use the example of Button and atom for this section.
 ```js
 /src/atoms/Button.jsx
-/src/atoms/Button.stories.jsx
+/src/atoms/Button.mdx
 /src/atoms/__tests__/Button.spec.jsx
 ```
 ##### Button.jsx
-###### It is a Class
-First of all it creates the component in a class form extending `React.Component` most components probably could be defined as a stateless function or as a `styled-component`, defined by css-in-js option. There are two man reasons for this the first is consistancy. Some components will need this level of complexity. So if everything follows a similar pattern it makes things easier. The seccond reason has to do with deprecation. If a component is ever deprecated or props on component become deprecated you will want to leverage life cycle hooks to warn users about the usage. We typically do it in the constructor. 
+###### It is a function component
+First of all it creates the component in a function form. There is no reason for your component to be anything else. If you need state use React's hooks. Try to stay away from styled components they are not as performant. If a component is ever deprecated or props on component become deprecated you will want to leverage the `useEffect` hook to handle that.
+
 ###### 3 Props to consider
 > Please make sure to be careful and accuret with the props. They are used in the auto gen docs.
 
@@ -46,10 +47,8 @@ We include emotion for styling. You can remove it and use any option that you wa
 ###### Code styling and linting
 For this we simply chose to use the practices defined by create react app. We let prettier fix code on commit and eslint warn us of broken javascript.
 
-##### Button.stories.jsx
-This file is rendered by `storybook` and is a create environment for developing comonents in isolation. We have also included two addons. One is `info` it auto generates documentation to help other developers quickly see the api with out any help. One can also extend the documentation via mark down. The other addon we include is `knobs`. We have found it very helpful to lets developers easily play with the props to see the other states rather then make a story for all teh different states. 
-
-> We used to use story shots but found that the combonation of `info` and `storyshots` is not very helpful.
+##### Button.mdx
+This file is rendered by `docz` and is a great environment for developing components in isolation and creating documentation. We used to use storybook. They are great but seem to be more complicated and we wanted something easy to use and for others to contribute easily to documentation.
 
 ##### Button.specs.jsx
 
@@ -59,7 +58,7 @@ This is the test file for the component. Most of the components can be validated
 After you add your new component you are read to start developing. 
 
 #### Making Your Component
-To start run `yarn start` this will start storybook at `localhost:6006`.
+To start run `yarn start` this will start docz at `localhost:3000`.
 Open up `src/atoms/Buttons/Button.jsx` and start makeing changes to you component. When you save the dev environenment will refresh and you will be ready see you changes.
 
 > We haver pruposely add "annoying" styles to the new component so you can see it and start changing it right away.
@@ -70,6 +69,8 @@ When you run yarn test, it will create a few snapshots using jest. So open `src/
 > There is another type of testing that could be awesome. Take a peak at chromatic. It takes snapshots pictures of you components based on your stories. We have not included anything like this at this type but might in the future.
 
 #### Deprecation
+> *TODO*: This should be recreated as an useEffect -> useDeprication.
+
 As you components mature props or even whole components might need to be deprecated. Take care to give others time to make adjustments before doing a major bump. Here is an example of how we handle it.
 
 > Deprecation is a NOOP in production
@@ -114,6 +115,6 @@ Peer dependancies can help shrink the bundle for the end user. For example if yo
 
 ## Contibuting
 
-Feel free to contribute example components that are generally useful and and updates to make this process easier for others. Also write your own guidlines for contributing if you have cloned/forked this repo.
+Feel free to contribute example components that are generally useful and updates to make this process easier for others. Also write your own guidlines for contributing if you have cloned/forked this repo.
 
  > We are intersted in establishing this pattern for other frameworks that storybook supports so please feel free to reach out and lets get a mono repo started to help out others.
