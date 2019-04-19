@@ -42,8 +42,8 @@ function renameComponentFiles(componentType, componentName) {
     `${componentPath}/${componentName}.jsx`
   );
   fs.renameSync(
-    `${componentPath}/ComponentName.stories.jsx`,
-    `${componentPath}/${componentName}.stories.jsx`
+    `${componentPath}/ComponentName.mdx`,
+    `${componentPath}/${componentName}.mdx`
   );
   fs.renameSync(
     `${componentPath}/__tests__/ComponentName.spec.jsx`,
